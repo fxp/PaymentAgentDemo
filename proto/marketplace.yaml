@@ -1,0 +1,95 @@
+openapi: 3.1.0
+info:
+  title: Marketplace API
+  version: 0.1.0
+paths:
+  /company/basic:
+    get:
+      summary: Search companies
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Basic info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CompanyBasic'
+  /company/detail:
+    get:
+      summary: Company detail
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detail info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompanyDetail'
+        '402':
+          description: Need Payment
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentRequired'
+  /pay:
+    post:
+      summary: Pay for premium data
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayRequest'
+      responses:
+        '200':
+          description: Payment success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayResponse'
+components:
+  schemas:
+    CompanyBasic:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    CompanyDetail:
+      allOf:
+        - $ref: '#/components/schemas/CompanyBasic'
+        - type: object
+          properties:
+            description:
+              type: string
+    PaymentRequired:
+      type: object
+      properties:
+        price:
+          type: integer
+    PayRequest:
+      type: object
+      properties:
+        tokenId:
+          type: string
+        amount:
+          type: integer
+    PayResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
