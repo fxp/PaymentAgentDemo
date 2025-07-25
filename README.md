@@ -115,6 +115,18 @@ sequenceDiagram
 
 ---
 
+## 本地运行
+
+仓库根目录提供 `run_all.sh` 脚本（依赖 Docker Compose）。执行：
+
+```bash
+./run_all.sh
+```
+
+脚本会自动构建并启动 orchestrator、payment-manager、marketplace mock 等服务，方便在本地进行端到端调试。
+
+---
+
 ### 一页总结
 
 > **用户 App** → 声纹一句话下单 → **Agent** 自动申请银联 Payment Token → **电商 API** 遇 402 即付 → 数据回流 → **LLM** 汇总成报告 → WebSocket 告知用户。
