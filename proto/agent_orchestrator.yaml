@@ -1,0 +1,37 @@
+openapi: 3.1.0
+info:
+  title: Agent Orchestrator API
+  version: 0.1.0
+paths:
+  /tasks:
+    post:
+      summary: Create task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskRequest'
+      responses:
+        '200':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+components:
+  schemas:
+    TaskRequest:
+      type: object
+      properties:
+        theme:
+          type: string
+        budget:
+          type: integer
+        voice_id:
+          type: string
+    TaskResponse:
+      type: object
+      properties:
+        task_id:
+          type: string

@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_PASSWORD: example
+    ports:
+      - '5432:5432'
+  redis:
+    image: redis:7-alpine
+    ports:
+      - '6379:6379'
+  agent-orchestrator:
+    build: ./services/agent_orchestrator
+    ports:
+      - '8000:8000'
+  payment-manager:
+    build: ./services/payment_manager
+    ports:
+      - '8001:8000'
+  marketplace-api:
+    build: ./services/marketplace_mock
+    ports:
+      - '8002:8000'
+  token-issuer-mock:
+    build: ./services/token_issuer_mock
+    ports:
+      - '8003:8000'

@@ -1,0 +1,33 @@
+openapi: 3.1.0
+info:
+  title: Token Issuer API
+  version: 0.1.0
+paths:
+  /token:
+    get:
+      summary: Issue token
+      parameters:
+        - in: query
+          name: app_id
+          schema:
+            type: string
+        - in: query
+          name: app_secret
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Token issued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+components:
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        token_id:
+          type: string
+        expire_in:
+          type: integer
